@@ -1,0 +1,60 @@
+-- Criação da interface simples com TextLabels clicáveis
+local Players = game:GetService("Players")
+local player = Players.LocalPlayer
+local gui = Instance.new("ScreenGui", player:WaitForChild("PlayerGui"))
+gui.Name = "HubSelector"
+gui.ResetOnSpawn = false
+
+-- Container
+local frame = Instance.new("Frame", gui)
+frame.Size = UDim2.new(0, 250, 0, 120)
+frame.Position = UDim2.new(0.5, -125, 0.5, -60)
+frame.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+frame.BorderSizePixel = 0
+
+-- Título
+local title = Instance.new("TextLabel", frame)
+title.Size = UDim2.new(1, 0, 0, 40)
+title.Position = UDim2.new(0, 0, 0, 0)
+title.BackgroundTransparency = 1
+title.Text = "Selecione o Hub"
+title.TextColor3 = Color3.new(1, 1, 1)
+title.Font = Enum.Font.GothamBold
+title.TextSize = 18
+
+-- Função para criar TextLabels como "botão"
+local function createClickableLabel(parent, text, position, callback)
+    local label = Instance.new("TextLabel", parent)
+    label.Size = UDim2.new(1, -20, 0, 30)
+    label.Position = UDim2.new(0, 10, position, 0)
+    label.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+    label.TextColor3 = Color3.new(1, 1, 1)
+    label.Text = text
+    label.Font = Enum.Font.Gotham
+    label.TextSize = 16
+    label.BorderSizePixel = 0
+
+    -- Tornar clicável
+    local click = Instance.new("TextButton", label)
+    click.Size = UDim2.new(1, 0, 1, 0)
+    click.Position = UDim2.new(0, 0, 0, 0)
+    click.TextTransparency = 1
+    click.BackgroundTransparency = 1
+    click.MouseButton1Click:Connect(callback)
+end
+
+-- Angel Hub
+createClickableLabel(frame, "Angel Hub", 0.45, function()
+    pcall(function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Shadow6698/hubmystery/main/Main.txt"))()
+    end)
+    gui:Destroy()
+end)
+
+-- MagoByte Hub
+createClickableLabel(frame, "MagoByte Hub", 0.75, function()
+    pcall(function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Shadow6698/hubsecrety/main/Main.txt"))()
+    end)
+    gui:Destroy()
+end)
